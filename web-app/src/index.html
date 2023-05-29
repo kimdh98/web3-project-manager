@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Project Management</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">Project Manager</h1>
+          <h4 class="text-center"><b>Current account: </b><span id="current_account"></span></h4>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="list-container">
+                <div class="scrollable-list" style="flex: 1; width: 100%;">
+                    <h2 class="text-center">Project Members</h2>
+                    <ul id="project-members">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" id="owner-member-control">
+        <div class="row" id="address_div">
+          <div style="margin-left: 15px;margin-top: 10px; text-align: center;">
+            <span><b>Register project member : </b></span>
+            <input type="text" style="width: 200px;" id="enter_name" placeholder="Member name"></input>
+            <input type="text" style="width: 200px;" id="enter_address" placeholder="Enter an address"></input>
+            <button class="btn btn-info" type="button" id="register">Register</button>
+          </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="list-container">
+                <div class="scrollable-list" style="flex: 1; width: 50%;">
+                <h2 class="text-center">Completed Tasks</h2>
+                <ul id="completed-tasks">
+                </ul>
+                </div>
+            
+                <div class="scrollable-list" style="flex: 1; width: 50%;">
+                <h2 class="text-center">Ongoing Tasks</h2>
+                <ul id="ongoing-tasks">
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" id="owner-task-control" style="padding-top:20px">
+      <div id="info-section" class="row" style="font-size:20px; text-align:center; display:flex">
+        <div style="flex: 1; width: 50%">
+            <h3>Assign new task</h3>
+            <label for="name">Description:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="members">Members:</label>
+            <select type="text" id="members" name="members" multiple required>
+
+            </select>
+            <br>
+            <label for="difficulty">Difficulty:</label>
+            <select id="difficulty" name="difficulty">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button class="btn btn-info" type="button" id="add-task">Add Task</button>
+        </div>
+        <div style="flex: 1; width: 50%">
+            <h3>Verify Task Completion</h3>
+            <label for="verify-id">Task Id:</label>
+            <input type="text" id="verify-id" name="verify-id" required>
+            <button class="btn btn-info" type="button" id="verify-completion">Verify</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row" style="padding-top:20px">
+        <div id="info-section" class="row" style="font-size:20px; text-align:center; display:block">
+              <h3>Request Completion</h3>
+              <label for="request-id">Task Id:</label>
+              <input type="text" id="request-id" name="request-id" required>
+              <button class="btn btn-info" type="button" id="request-completion">Request</button>
+        </div>
+      </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/dist/bootstrap.min.js"></script>
+    <script src="js/dist/web3.min.js"></script>
+    <script src="js/dist/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "name": "Kimbab",
+    "picture": "images/kimbab.jpg"
+  },
+  {
+    "id": 1,
+    "name": "Kimchi Stew",
+    "picture": "images/kimchi.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Pizza",
+    "picture": "images/pizza.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Sushi",
+    "picture": "images/sushi.jpg"
+  }
+]

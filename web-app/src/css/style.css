@@ -1,0 +1,24 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.scrollable-list {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+  /* Style the list items */
+.scrollable-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Display the lists side by side and occupy half of the screen width */
+.list-container {
+    display: flex;
+}
