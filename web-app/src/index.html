@@ -29,90 +29,106 @@
         </div>
       </div>
     </div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="list-container">
-                <div class="scrollable-list" style="flex: 1; width: 100%;">
-                    <h2 class="text-center">Project Members</h2>
-                    <ul id="project-members">
-                    </ul>
+
+    <div class="tabs">
+        <div class="tab-header" style="text-align: center;">
+          <div class="tab" onclick="openTab(event, 'tab1')">View Members</div>
+          <div class="tab" onclick="openTab(event, 'tab2')">View Tasks</div>
+          <div class="tab" onclick="openTab(event, 'tab3')">Manage Task</div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+                <div class="container">
+                    <div class="row">
+                        <div class="list-container">
+                            <div class="scrollable-list" style="flex: 1; width: 100%;">
+                                <h2 class="text-center">Project Members</h2>
+                                <ul id="project-members">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container" id="owner-member-control">
+                    <div class="row" id="address_div">
+                      <div style="margin-left: 15px;margin-top: 10px; text-align: center;">
+                        <span><b>Register project member : </b></span>
+                        <input type="text" style="width: 200px;" id="enter_name" placeholder="Member name"></input>
+                        <input type="text" style="width: 200px;" id="enter_address" placeholder="Enter an address"></input>
+                        <button class="btn btn-info" type="button" id="register">Register</button>
+                      </div>
+                    </div>
+                    <br>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="container" id="owner-member-control">
-        <div class="row" id="address_div">
-          <div style="margin-left: 15px;margin-top: 10px; text-align: center;">
-            <span><b>Register project member : </b></span>
-            <input type="text" style="width: 200px;" id="enter_name" placeholder="Member name"></input>
-            <input type="text" style="width: 200px;" id="enter_address" placeholder="Enter an address"></input>
-            <button class="btn btn-info" type="button" id="register">Register</button>
-          </div>
-        </div>
-        <br>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="list-container">
-                <div class="scrollable-list" style="flex: 1; width: 50%;">
-                <h2 class="text-center">Completed Tasks</h2>
-                <ul id="completed-tasks">
-                </ul>
+        
+            <div class="tab-pane" id="tab2">
+                <div class="container">
+                    <div class="row">
+                        <div class="list-container">
+                            <div class="scrollable-list" style="flex: 1; width: 50%;">
+                            <h2 class="text-center">Completed Tasks</h2>
+                            <ul id="completed-tasks">
+                            </ul>
+                            </div>
+                        
+                            <div class="scrollable-list" style="flex: 1; width: 50%;">
+                            <h2 class="text-center">Ongoing Tasks</h2>
+                            <ul id="ongoing-tasks">
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        
+            <div class="tab-pane" id="tab3">
+                <div class="row" id="owner-task-control" style="padding-top:20px">
+                  <div id="info-section" class="row" style="font-size:20px; text-align:center; display:flex">
+                    <div style="flex: 1; width: 50%">
+                        <h3>Assign new task</h3>
+                        <label for="name">Description:</label>
+                        <input type="text" id="name" name="name" required>
+                        <br>
+                        <label for="members">Members:</label>
+                        <select type="text" id="members" name="members" multiple required>
             
-                <div class="scrollable-list" style="flex: 1; width: 50%;">
-                <h2 class="text-center">Ongoing Tasks</h2>
-                <ul id="ongoing-tasks">
-                </ul>
+                        </select>
+                        <br>
+                        <label for="difficulty">Difficulty:</label>
+                        <select id="difficulty" name="difficulty">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button class="btn btn-info" type="button" id="add-task">Add Task</button>
+                    </div>
+                    <div style="flex: 1; width: 50%">
+                        <h3>Verify Task Completion</h3>
+                        <label for="verify-id">Task Id:</label>
+                        <input type="text" id="verify-id" name="verify-id" required>
+                        <button class="btn btn-info" type="button" id="verify-completion">Verify</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row" style="padding-top:20px">
+                    <div id="info-section" class="row" style="font-size:20px; text-align:center; display:block">
+                        <h3>Request Completion</h3>
+                        <label for="request-id">Task Id:</label>
+                        <input type="text" id="request-id" name="request-id" required>
+                        <button class="btn btn-info" type="button" id="request-completion">Request</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <div class="row" id="owner-task-control" style="padding-top:20px">
-      <div id="info-section" class="row" style="font-size:20px; text-align:center; display:flex">
-        <div style="flex: 1; width: 50%">
-            <h3>Assign new task</h3>
-            <label for="name">Description:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-            <label for="members">Members:</label>
-            <select type="text" id="members" name="members" multiple required>
-
-            </select>
-            <br>
-            <label for="difficulty">Difficulty:</label>
-            <select id="difficulty" name="difficulty">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <button class="btn btn-info" type="button" id="add-task">Add Task</button>
-        </div>
-        <div style="flex: 1; width: 50%">
-            <h3>Verify Task Completion</h3>
-            <label for="verify-id">Task Id:</label>
-            <input type="text" id="verify-id" name="verify-id" required>
-            <button class="btn btn-info" type="button" id="verify-completion">Verify</button>
-        </div>
-      </div>
-    </div>
+      
 
     
-    <div class="row" style="padding-top:20px">
-        <div id="info-section" class="row" style="font-size:20px; text-align:center; display:block">
-              <h3>Request Completion</h3>
-              <label for="request-id">Task Id:</label>
-              <input type="text" id="request-id" name="request-id" required>
-              <button class="btn btn-info" type="button" id="request-completion">Request</button>
-        </div>
-      </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -122,5 +138,6 @@
     <script src="js/dist/web3.min.js"></script>
     <script src="js/dist/truffle-contract.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/uiUtils.js"></script>
   </body>
 </html>

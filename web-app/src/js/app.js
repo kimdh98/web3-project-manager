@@ -2,40 +2,11 @@ App = {
   web3Provider: null,
   contracts: {},
   names: new Array(),
-  url: 'http://127.0.0.1:7545',
+  url: '127.0.0.1:7545',
   owner:null,
   currentAccount:null,
 
-  eventPhases: {
-    "VoteInit": { 'id': 0, 'text': "Voting Not Started" },
-    "RegsStarted": { 'id': 1, 'text': "Registration Started" },
-    "VoteStarted": { 'id': 2, 'text': "Voting Started" },
-    "VoteDone": { 'id': 3, 'text': "Voting Ended" }
-  },
-
-  votingPhases: {
-    "0": "Voting Not Started",
-    "1": "Registration Started",
-    "2": "Voting Started",
-    "3": "Voting Ended"
-  },
-
   init: function() {
-    /*
-    $.getJSON('../proposals.json', function(data) {
-      var proposalsRow = $('#proposalsRow');
-      var proposalTemplate = $('#proposalTemplate');
-
-      for (i = 0; i < data.length; i ++) {
-        proposalTemplate.find('.panel-title').text(data[i].name);
-        proposalTemplate.find('img').attr('src', data[i].picture);
-        proposalTemplate.find('.btn-vote').attr('data-id', data[i].id);
-
-        proposalsRow.append(proposalTemplate.html());
-        App.names.push(data[i].name);
-      }
-    });
-    */
     return App.initWeb3();
   },
 
@@ -60,13 +31,8 @@ App = {
       App.contracts.project = TruffleContract(projectArtifact);
       // Set the provider for our contract
       App.contracts.project.setProvider(App.web3Provider);
-
-      web3.eth.defaultAccount = web3.eth.coinbase;
-      App.currentAccount = web3.eth.coinbase;
-      jQuery('#current_account').text(App.currentAccount);
       
-      //App.getCurrentPhase();
-      App.getOwner();
+      App.getUser();
       App.getProjectMembers();
       App.getCompletedTasks();
       App.getPendingTasks();
@@ -93,6 +59,7 @@ App = {
         };
         App.handleRegister(params); 
     });
+    ethereum.on("accountsChanged", App.getUser);
   },
 
 
@@ -116,7 +83,7 @@ App = {
         console.log(result);
         for (const member of result) {
             console.log(member)
-            memberList.append($(`<li>${member.name}\t${member.addr}\t${member.tokens} tokens owned\t(${member.percent*100}%)</li>`));
+            memberList.append($(`<li>${member.name}\t||\t${member.addr}\t||\t${member.tokens} tokens owned\t(${member.percent*100}%)</li>`));
             memberOpts.append($(`<option value=${member.addr}>${member.name}</option>`))
         }
     })
@@ -140,9 +107,9 @@ App = {
         for (const task of result) {
             console.log(App.owner, App.currentAccount);
             if (App.owner == App.currentAccount)
-                taskList.append($(`<li>id:${task[0]},name:${task[1]},difficulty:${task[4]},completeRequested:${task[3]}</li>`));
+                taskList.append($(`<li>id:${task[0]}\t||\tname:${task[1]}\t||\tdifficulty:${task[4]}\t||\tcompleteRequested:${task[3]}</li>`));
             else
-                taskList.append($(`<li>id:${task[0]},name:${task[1]},difficulty:${task[4]}</li>`));
+                taskList.append($(`<li>id:${task[0]}\t||\tname:${task[1]}\t||\tdifficulty:${task[4]}</li>`));
         }
     })
   },
@@ -164,21 +131,25 @@ App = {
         console.log(result);
         for (const task of result) {
             console.log(task)
-            taskList.append($(`<li>id:${task[0]},name:${task[1]},difficulty:${task[4]}</li>`));
+            taskList.append($(`<li>id:${task[0]}\t||\tname:${task[1]}\t||\tdifficulty:${task[4]}</li>`));
         }
     })
   },
 
-  getOwner : async function(){
+  getUser : async function(){
     App.contracts.project.deployed().then(function(instance) {
       return instance;
     }).then(async function(result) {
       App.owner = await result.projectOwner();
+      web3.eth.defaultAccount = web3.eth.coinbase;
       App.currentAccount = web3.eth.coinbase;
       console.log(App.owner, App.currentAccount);
       if(App.owner == App.currentAccount){
         jQuery('#current_account').text(App.currentAccount+" (owner)");
+        $('#owner-member-control').show();
+        $('#owner-task-control').show();
       } else {
+        jQuery('#current_account').text(App.currentAccount);
         $('#owner-member-control').hide();
         $('#owner-task-control').hide();
       }
