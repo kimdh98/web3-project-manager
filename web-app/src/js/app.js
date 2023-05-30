@@ -2,7 +2,7 @@ App = {
   web3Provider: null,
   contracts: {},
   names: new Array(),
-  url: 'https://eth-sepolia.g.alchemy.com/v2/cEhk5chOFt_TlBrFCfqAVnSqptvkkJ_0',
+  url: '127.0.0.1:7545',
   owner:null,
   currentAccount:null,
 
