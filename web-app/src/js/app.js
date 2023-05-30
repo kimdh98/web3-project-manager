@@ -2,7 +2,7 @@ App = {
   web3Provider: null,
   contracts: {},
   names: new Array(),
-  url: '127.0.0.1:7545',
+  url: 'https://eth-sepolia.g.alchemy.com/v2/cEhk5chOFt_TlBrFCfqAVnSqptvkkJ_0',
   owner:null,
   currentAccount:null,
 
@@ -59,6 +59,7 @@ App = {
         };
         App.handleRegister(params); 
     });
+    $(document).on('click', '#transfer', function(){ var ad = $('#transfer_address').val(); App.handleOwnershipTransfer(ad); });
     ethereum.on("accountsChanged", App.getUser);
   },
 
@@ -223,7 +224,26 @@ App = {
           App.getPendingTasks();
           App.getProjectMembers();
       });
-  }
+  },
+  
+  handleOwnershipTransfer: function(ad) {
+    App.contracts.project.deployed().then(function(instance) {
+        return instance.handoverOwnership(ad);
+      }).then(function(result, err){
+          if(result){
+              if(parseInt(result.receipt.status) == 1)
+              alert("Successfully transferred ownership to" + ad)
+              else
+              alert("Transfer not done successfully due to revert")
+          } else {
+              alert("Transfer failed")
+          }   
+          App.getUser();
+          App.getCompletedTasks();
+          App.getPendingTasks();
+          App.getProjectMembers();
+      });
+  },
 };
 
 $(function() {
