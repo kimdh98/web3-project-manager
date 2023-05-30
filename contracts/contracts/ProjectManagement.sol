@@ -38,12 +38,13 @@ contract ProjectManagement {
     event TaskDeleted(uint256 indexed taskId);
     event MemberAdded(address indexed member);
     event RewardClaimed(address indexed recipient, uint256 fragments);
+    event ProjectOwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     constructor() {
         projectOwner = msg.sender;
         projectNFT.nftId = 1;
         projectNFT.nftName = "Project NFT";
-        addProjectMember(projectOwner, "Owner");
+        addProjectMember(projectOwner, "Kim");
     }
 
     modifier onlyProjectOwner() {
@@ -62,6 +63,16 @@ contract ProjectManagement {
         memberAddresses.push(_member);
         memberCount += 1;
         emit MemberAdded(_member);
+    }
+
+    function handoverOwnership(address _newOwner) public onlyProjectOwner {
+        require(_newOwner != address(0), "Invalid new owner address");
+        require(_newOwner != projectOwner, "New owner address must be different from the current owner");
+
+        address previousOwner = projectOwner;
+        projectOwner = _newOwner;
+
+        emit ProjectOwnershipTransferred(previousOwner, _newOwner);
     }
 
     function createTask(string memory _taskName, address[] memory _assignedTo, uint8 _difficultyLevel) public onlyProjectOwner {
@@ -93,7 +104,6 @@ contract ProjectManagement {
 
         uint256 rewardFragments = calculateRewardFragments(task.difficultyLevel);
         distributeRewards(task.assignedTo, rewardFragments);
-        projectNFT.totalFragmentsAwarded += rewardFragments;
     }
 
     function deleteTask(uint256 _taskId) public onlyProjectOwner {
@@ -106,15 +116,15 @@ contract ProjectManagement {
 
     function calculateRewardFragments(uint8 _difficultyLevel) internal pure returns (uint256) {
         require(_difficultyLevel >= 1 && _difficultyLevel <= 5, "Invalid difficulty level");
-        return (_difficultyLevel-1)**2;
+        return 2**(_difficultyLevel-1);
     }
 
     function distributeRewards(address[] memory _recipients, uint256 _rewardFragments) internal {
-        uint256 rewardAmount = _rewardFragments / _recipients.length;
+        projectNFT.totalFragmentsAwarded += _rewardFragments*_recipients.length;
         for (uint256 i = 0; i < _recipients.length; i++) {
             address recipient = _recipients[i];
-            projectMembers[recipient].fragmentsEarned += rewardAmount;
-            emit RewardClaimed(recipient, rewardAmount);
+            projectMembers[recipient].fragmentsEarned += _rewardFragments;
+            emit RewardClaimed(recipient, _rewardFragments);
         }
     }
 
